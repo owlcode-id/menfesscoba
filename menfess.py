@@ -61,7 +61,17 @@ def garz(message):
     is_joined_group = bot.get_chat_member(gc, id).status == "member"
     
     if not is_joined_channel or not is_joined_group:
-        kirim(id, "To use this bot, you must first join our channel and group.")
+        yamete = ma(row_width=1)
+        
+        if not is_joined_channel:
+            rawr = bb(text="Join Channel", url=link)
+            yamete.add(rawr)
+        
+        if not is_joined_group:
+            rawr_gc = bb(text="Join Group", url=f"https://t.me/joinchat/{gc}")
+            yamete.add(rawr_gc)
+            
+        kirim(id, "To use this bot, you must first join our channel and group.", reply_markup=yamete)
         return
     
     nggih = '\n'.join(map(str, trigger))
@@ -90,7 +100,17 @@ def menfessin(message):
     is_joined_group = bot.get_chat_member(gc, id).status == "member"
     
     if not is_joined_channel or not is_joined_group:
-        kirim(id, "You must first join our channel and group before sending a menfess message.")
+        yamete = ma(row_width=1)
+        
+        if not is_joined_channel:
+            rawr = bb(text="Join Channel", url=link)
+            yamete.add(rawr)
+        
+        if not is_joined_group:
+            rawr_gc = bb(text="Join Group", url=f"https://t.me/joinchat/{gc}")
+            yamete.add(rawr_gc)
+            
+        kirim(id, "You must first join our channel and group before sending a menfess message.", reply_markup=yamete)
         return
     
     if id in apaantuh:
