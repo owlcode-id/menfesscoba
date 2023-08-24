@@ -26,9 +26,9 @@ ch = os.getenv("CHANNEL")
 link = os.getenv("LINK")
 admin = json.loads(os.getenv("ADMIN"))
 trigger = json.loads(os.getenv("TAG"))
-delay = os.getenv("DELAY")
+delay = int(os.getenv("DELAY"))  # Convert delay to int
 gc = os.getenv("GROUP_ID")
-owner_id = int(os.getenv("OWNER_ID"))
+owner_id = int(os.getenv("OWNER_ID"))  # Convert owner_id to int
 mulai = '''
 Selamat Datang Di *Garz Menfess*
 
