@@ -52,9 +52,6 @@ def diam(id):
     time.sleep(delay)
     apaantuh.remove(data)
 
-def is_admin(user_id):
-    return user_id in admin
-
 @bot.message_handler(commands=["start", "broadcast", "ping"], chat_types=["private"])
 def garz(message):
     id = message.chat.id
@@ -62,19 +59,24 @@ def garz(message):
     
     is_joined_channel = bot.get_chat_member(ch, id).status == "member"
     is_joined_group = bot.get_chat_member(gc, id).status == "member"
-    is_admin_user = is_admin(id)
     
-    yamete = ma(row_width=2)
-    rawr = bb(text="Channel Menfess", url=link)
-    
-    if not is_admin_user:
+    if not is_joined_channel or not is_joined_group:
+        yamete = ma(row_width=1)
+        
         if not is_joined_channel:
-            rawr_channel = bb(text="Join Channel", url=link)
-            yamete.add(rawr_channel)
+            rawr = bb(text="Join Channel", url=link)
+            yamete.add(rawr)
         
         if not is_joined_group:
-            rawr_group = bb(text="Join Group", url=get_group_invite_link())
-            yamete.add(rawr_group)
+            rawr_gc = bb(text="Join Group", url=get_group_invite_link())
+            yamete.add(rawr_gc)
+            
+        kirim(id, "To use this bot, you must first join our channel and group.", reply_markup=yamete)
+        return
+    
+    nggih = '\n'.join(map(str, trigger))
+    yamete = ma(row_width=2)
+    rawr = bb(text="Channel Menfess", url=link)
     
     try:
         group_invite_link = bot.export_chat_invite_link(gc)
@@ -104,22 +106,20 @@ def menfessin(message):
     
     is_joined_channel = bot.get_chat_member(ch, id).status == "member"
     is_joined_group = bot.get_chat_member(gc, id).status == "member"
-    is_admin_user = is_admin(id)
     
-    if not is_admin_user:
-        if not is_joined_channel or not is_joined_group:
-            yamete = ma(row_width=1)
+    if not is_joined_channel or not is_joined_group:
+        yamete = ma(row_width=1)
+        
+        if not is_joined_channel:
+            rawr = bb(text="Join Channel", url=link)
+            yamete.add(rawr)
+        
+        if not is_joined_group:
+            rawr_gc = bb(text="Join Group", url=get_group_invite_link())
+            yamete.add(rawr_gc)
             
-            if not is_joined_channel:
-                rawr = bb(text="Join Channel", url=link)
-                yamete.add(rawr)
-            
-            if not is_joined_group:
-                rawr_gc = bb(text="Join Group", url=get_group_invite_link())
-                yamete.add(rawr_gc)
-                
-            kirim(id, "You must first join our channel and group before sending a menfess message.", reply_markup=yamete)
-            return
+        kirim(id, "You must first join our channel and group before sending a menfess message.", reply_markup=yamete)
+        return
     
     if id in apaantuh:
         kirim(id, f"Failed to send!!\n\nYou just sent a menfess, wait {delay} seconds before posting again!")
