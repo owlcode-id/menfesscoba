@@ -26,9 +26,8 @@ ch = os.getenv("CHANNEL")
 link = os.getenv("LINK")
 admin = json.loads(os.getenv("ADMIN"))
 trigger = json.loads(os.getenv("TAG"))
-delay = int(os.getenv("DELAY"))  # Convert delay to int
+delay = os.getenv("DELAY")
 gc = os.getenv("GROUP_ID")
-owner_id = int(os.getenv("OWNER_ID"))  # Convert owner_id to int
 mulai = '''
 Selamat Datang Di *Garz Menfess*
 
@@ -64,11 +63,11 @@ def garz(message):
     if not is_joined_channel or not is_joined_group:
         yamete = ma(row_width=1)
         
-        if not is_joined_channel and ch:
+        if not is_joined_channel:
             rawr = bb(text="Join Channel", url=link)
             yamete.add(rawr)
         
-        if not is_joined_group and gc:
+        if not is_joined_group:
             rawr_gc = bb(text="Join Group", url=get_group_invite_link())
             yamete.add(rawr_gc)
             
@@ -111,11 +110,11 @@ def menfessin(message):
     if not is_joined_channel or not is_joined_group:
         yamete = ma(row_width=1)
         
-        if not is_joined_channel and ch:
+        if not is_joined_channel:
             rawr = bb(text="Join Channel", url=link)
             yamete.add(rawr)
         
-        if not is_joined_group and gc:
+        if not is_joined_group:
             rawr_gc = bb(text="Join Group", url=get_group_invite_link())
             yamete.add(rawr_gc)
             
@@ -171,23 +170,6 @@ def awikwokbanget(cek, cekin):
     b2 = bb(text="Check Comment", url=cekin)
     miaw.add(b1, b2)
     return miaw
-
-# Function for admin management
-@bot.message_handler(commands=["admin", "ban", "unadmin"])
-def admin_management(message):
-    id = message.chat.id
-    user_id = message.reply_to_message.from_user.id if message.reply_to_message else None
-    
-    if user_id and id == owner_id:
-        if "/admin" in message.text:
-            bot.promote_chat_member(gc, user_id, can_change_info=True, can_invite_users=True, can_pin_messages=True, can_manage_chat=True)
-            kirim(id, "User has been promoted to admin.")
-        elif "/ban" in message.text:
-            bot.kick_chat_member(gc, user_id)
-            kirim(id, "User has been banned from the group.")
-        elif "/unadmin" in message.text:
-            bot.promote_chat_member(gc, user_id, can_change_info=False, can_invite_users=False, can_pin_messages=False, can_manage_chat=False)
-            kirim(id, "Admin status has been removed.")
 
 print("\n\nBOT IS ACTIVE!!! @GARZPROJECT")
 bot.infinity_polling()
