@@ -1,14 +1,3 @@
-###########################################
-# Garz Menfess Telegram Bot
-# Tegar Prayuda | Hak Cipta
-# Tolong Hargai Pembuat Script Ini
-# Recode ? Cantumin Source
-# join t.me/GarzProject
-# contact : t.me/tegarprayuda
-# Jual Source  Code Menfess Bot Full Fitur 
-# github.com/GarzProject/MenfessTelegramBot
-###########################################
-
 try:
     import telebot
     import time
@@ -68,7 +57,7 @@ def garz(message):
             yamete.add(rawr)
         
         if not is_joined_group:
-            rawr_gc = bb(text="Join Group", url=f"https://t.me/joinchat/{get_group_invite_link()}")
+            rawr_gc = bb(text="Join Group", url=f"https://t.me/{get_group_username()}")
             yamete.add(rawr_gc)
             
         kirim(id, "To use this bot, you must first join our channel and group.", reply_markup=yamete)
@@ -83,19 +72,20 @@ def garz(message):
         rawr_gc = bb(text="Group Menfess", url=group_invite_link)
     except Exception as e:
         print(f"Error getting group invite link: {e}")
-        rawr_gc = bb(text="Group Menfess", url=f"https://t.me/c/{gc[4:]}")  # Fallback link
+        rawr_gc = bb(text="Group Menfess", url=f"https://t.me/{get_group_username()}")
         
     yamete.add(rawr, rawr_gc)
     kirim(id, mulai.format(nggih), parse_mode="markdown", reply_markup=yamete)
     return
 
-def get_group_invite_link():
+def get_group_username():
     try:
-        invite_link = bot.create_chat_invite_link(gc).invite_link
-        return invite_link
+        group_info = bot.get_chat(gc)
+        group_username = group_info.username
+        return group_username
     except Exception as e:
-        print(f"Error getting group invite link: {e}")
-        return f"https://t.me/c/{gc[4:]}"  # Fallback link
+        print(f"Error getting group username: {e}")
+        return ""
 
 @bot.message_handler(content_types=["text"])
 def menfessin(message):
