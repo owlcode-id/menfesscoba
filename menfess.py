@@ -70,7 +70,7 @@ def garz(message):
         nggih = '\n'.join(map(str, trigger))
         yamete = ma(row_width=2)
         rawr = bb(text="Channel Menfess", url=link)
-        rawr_gc = bb(text="Grup Menfess", url=f"https://t.me/c/{gc[4:]}")
+        rawr_gc = bb(text="Grup Menfess", url=f"https://t.me/joinchat/{gc}")
         yamete.add(rawr, rawr_gc)
         kirim(id, mulai.format(nggih), parse_mode="markdown", reply_markup=yamete)
     elif "/ping" in teks:
