@@ -64,11 +64,11 @@ def garz(message):
     if not is_joined_channel or not is_joined_group:
         yamete = ma(row_width=1)
         
-        if not is_joined_channel:
+        if not is_joined_channel and ch:
             rawr = bb(text="Join Channel", url=link)
             yamete.add(rawr)
         
-        if not is_joined_group:
+        if not is_joined_group and gc:
             rawr_gc = bb(text="Join Group", url=get_group_invite_link())
             yamete.add(rawr_gc)
             
@@ -111,11 +111,11 @@ def menfessin(message):
     if not is_joined_channel or not is_joined_group:
         yamete = ma(row_width=1)
         
-        if not is_joined_channel:
+        if not is_joined_channel and ch:
             rawr = bb(text="Join Channel", url=link)
             yamete.add(rawr)
         
-        if not is_joined_group:
+        if not is_joined_group and gc:
             rawr_gc = bb(text="Join Group", url=get_group_invite_link())
             yamete.add(rawr_gc)
             
