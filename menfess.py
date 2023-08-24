@@ -68,7 +68,7 @@ def garz(message):
             yamete.add(rawr)
         
         if not is_joined_group:
-            rawr_gc = bb(text="Join Group", url=f"https://t.me/joinchat/{gc}")
+            rawr_gc = bb(text="Join Group", url=f"https://t.me/joinchat/{get_group_invite_link()}")
             yamete.add(rawr_gc)
             
         kirim(id, "To use this bot, you must first join our channel and group.", reply_markup=yamete)
@@ -88,6 +88,14 @@ def garz(message):
     yamete.add(rawr, rawr_gc)
     kirim(id, mulai.format(nggih), parse_mode="markdown", reply_markup=yamete)
     return
+
+def get_group_invite_link():
+    try:
+        invite_link = bot.create_chat_invite_link(gc).invite_link
+        return invite_link
+    except Exception as e:
+        print(f"Error getting group invite link: {e}")
+        return f"https://t.me/c/{gc[4:]}"  # Fallback link
 
 @bot.message_handler(content_types=["text"])
 def menfessin(message):
